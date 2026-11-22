@@ -19,14 +19,17 @@ func main() {
 	data := Data{
 		Info: "Hello, World!",
 	}
+
 	h, err := save(db, data)
 	if err != nil {
 		panic(err)
 	}
+
 	db.Do(h, func(b []byte) {
 		l := *(*uint32)(unsafe.Pointer(&b[0]))
 		fmt.Println("Data:", string(b[4:4+l]))
 	})
+
 	db.Free(h)
 }
 
