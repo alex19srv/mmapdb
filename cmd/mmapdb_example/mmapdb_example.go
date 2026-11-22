@@ -24,7 +24,8 @@ func main() {
 		panic(err)
 	}
 	db.Do(h, func(b []byte) {
-		fmt.Println("Data:", string(b[4:]))
+		l := *(*uint32)(unsafe.Pointer(&b[0]))
+		fmt.Println("Data:", string(b[4:4+l]))
 	})
 	db.Free(h)
 }
